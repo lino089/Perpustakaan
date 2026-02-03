@@ -1,0 +1,393 @@
+/* 1. VARIABLE & BASE SETTINGS */
+:root {
+    --primary: #0d46f2;
+    --primary-hover: #0a38c2;
+    --bg-light: #f5f6f8;
+    --bg-dark: #101422;
+    --card-dark: #1e2330;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --border-color: #f1f5f9;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+    --shadow-lg: 0 25px 50px -12px rgba(0,0,0,0.25);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    line-height: 1.5;
+}
+
+/* 2. SCROLLBAR CUSTOM */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
+
+/* 3. HEADER & NAVIGATION */
+header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    padding: 0 1.5rem;
+    box-shadow: var(--shadow-sm);
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo { display: flex; align-items: center; gap: 12px; cursor: pointer; text-decoration: none; color: inherit; }
+.logo-icon {
+    width: 40px; height: 40px;
+    background: rgba(13, 70, 242, 0.1);
+    color: var(--primary);
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+.logo:hover .logo-icon { background: var(--primary); color: white; }
+
+nav { display: none; gap: 4px; }
+@media (min-width: 768px) { nav { display: flex; } }
+
+nav a {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 999px;
+    transition: 0.3s;
+}
+nav a:hover { color: var(--primary); background: #f8fafc; }
+nav a.active { color: var(--primary); background: rgba(13, 70, 242, 0.05); font-weight: 600; }
+
+/* 4. MAIN CONTENT & LAYOUT */
+main { flex-grow: 1; padding: 2rem; position: relative; }
+.container { max-width: 1200px; margin: 0 auto; position: relative; z-index: 10; }
+
+.page-header {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+    .page-header { flex-direction: row; justify-content: space-between; align-items: center; }
+}
+
+/* 5. COMPONENTS (Buttons, Search, Tables) */
+.search-wrapper { 
+    position: relative; 
+    width: 100%; 
+    max-width: 320px; 
+    display: flex;
+    align-items: center;
+}
+
+.search-wrapper .material-symbols-outlined {
+    position: absolute;
+    left: 16px;
+    color: #94a3b8;
+    pointer-events: none; /* Klik akan tembus ke input di bawahnya */
+    z-index: 10;
+}
+
+.glass-search {
+    width: 100%;
+    padding: 12px 12px 12px 48px; /* Padding kiri besar untuk tempat ikon */
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    outline: none;
+    transition: 0.3s;
+    font-size: 14px;
+}
+.glass-search {
+    width: 100%;
+    padding: 12px 12px 12px 48px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    outline: none;
+    transition: 0.3s;
+}
+.glass-search:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(13, 70, 242, 0.1); }
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 12px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px; /* Jarak antara ikon dan teks */
+    cursor: pointer;
+    box-shadow: 0 10px 15px -3px rgba(13, 70, 242, 0.2);
+    transition: all 0.3s ease;
+}
+
+.btn-primary .material-symbols-outlined {
+    font-size: 22px; /* Ukuran ikon di dalam tombol */
+}
+.btn-primary:hover {
+    transform: translateY(-2px);
+    background: var(--primary-hover);
+    box-shadow: 0 12px 20px -5px rgba(13, 70, 242, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    background: var(--primary-hover);
+    box-shadow: 0 12px 20px -5px rgba(13, 70, 242, 0.3);
+}
+
+/* Perbaikan Kolom Aksi agar Ikon Berjajar Rapi */
+.action-btns {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-start; /* Sesuaikan dengan tabel */
+    align-items: center;
+}
+
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    border: 1px solid #f1f5f9;
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-icon.edit { color: var(--primary); }
+.btn-icon.edit:hover { background: rgba(13, 70, 242, 0.05); border-color: var(--primary); }
+
+.btn-icon.delete { color: #ef4444; }
+.btn-icon.delete:hover { background: #fef2f2; border-color: #ef4444; }
+
+/* Ikon Google Material */
+.material-symbols-outlined {
+    font-size: 20px;
+}
+
+.card-table {
+    background: white;
+    border-radius: 16px;
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+table { width: 100%; border-collapse: collapse; text-align: left; }
+th {
+    background: #f8fafc;
+    padding: 16px 32px;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+}
+td { padding: 16px 32px; border-bottom: 1px solid #f1f5f9; font-size: 14px; }
+tr:hover { background: #f8fafc; }
+
+/* 6. MODAL SYSTEM */
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: none; /* Toggle with .active class or JS */
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.modal-content {
+    background: white;
+    width: 100%;
+    max-width: 480px;
+    max-height: 90vh;
+    border-radius: 24px;
+    padding: 32px;
+    position: relative;
+    overflow-y: auto;
+    box-shadow: var(--shadow-lg);
+    animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp { 
+    from { transform: translateY(20px); opacity: 0; } 
+    to { transform: translateY(0); opacity: 1; } 
+}
+
+/* 7. FORM ELEMENTS */
+.form-group { margin-bottom: 1.25rem; }
+.form-group label { 
+    display: block; 
+    font-size: 13px; 
+    font-weight: 600; 
+    margin-bottom: 6px; 
+    color: var(--text-main);
+}
+
+.form-control {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    background: transparent;
+    outline: none;
+    transition: 0.3s;
+    font-size: 14px;
+}
+.form-control:focus { 
+    border-color: var(--primary); 
+    box-shadow: 0 0 0 3px rgba(13, 70, 242, 0.1); 
+}
+
+/* Utility for grid in forms */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+/* 8. FOOTER */
+footer { background: #111318; color: white; padding: 2rem 0; border-top: 1px solid #1f232e; text-align: center; }
+
+/* 9. DARK MODE SUPPORT */
+@media (prefers-color-scheme: dark) {
+    body { background: var(--bg-dark); color: white; }
+    header, .card-table, .modal-content { background: var(--card-dark); border-color: #334155; }
+    th { background: rgba(255,255,255,0.02); }
+    td { border-color: #334155; color: #cbd5e1; }
+    .glass-search { background: rgba(30, 35, 48, 0.7); border-color: #334155; color: white; }
+    .form-control { border-color: #334155; color: white; }
+    .form-group label { color: #cbd5e1; }
+    header { background: var(--card-dark); }
+}
+
+/* --- PERBAIKAN MODAL & FORM CUSTOM --- */
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.modal-header h3 {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-main);
+}
+
+/* Styling Label Modern */
+.label-custom {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    margin-bottom: 8px;
+    color: var(--text-muted);
+}
+
+/* Styling Input & Select agar Seragam */
+.input-custom {
+    width: 100%;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-family: 'Manrope', sans-serif;
+    font-size: 14px;
+    color: var(--text-main);
+    transition: all 0.2s;
+    outline: none;
+}
+
+.input-custom:focus {
+    background: white;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(13, 70, 242, 0.1);
+}
+
+/* Container untuk tombol di bawah */
+.flex-end-gap {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 24px;
+}
+
+/* Tombol Simpan (Biru Modern) */
+.btn-simpan {
+    background: var(--primary);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-simpan:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+}
+
+/* Tombol Batal */
+.btn-batal {
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 12px 24px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn-batal:hover {
+    background: #e2e8f0;
+}
+
+/* Support Dark Mode untuk Modal */
+@media (prefers-color-scheme: dark) {
+    .input-custom {
+        background: rgba(255,255,255,0.05);
+        border-color: #334155;
+        color: white;
+    }
+    .btn-batal {
+        background: #334155;
+        color: #cbd5e1;
+    }
+    .modal-header h3 { color: white; }
+}

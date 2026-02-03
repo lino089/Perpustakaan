@@ -1,172 +1,107 @@
 <!DOCTYPE html>
-<html class="light" lang="en">
+<html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Member Management - Perpustakaan</title>
+    
     <link href="https://fonts.googleapis.com" rel="preconnect" />
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#0d46f2",
-                        "background-light": "#f5f6f8",
-                        "background-dark": "#101422",
-                    },
-                    fontFamily: {
-                        "display": ["Manrope", "sans-serif"]
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.25rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "2xl": "1rem",
-                        "full": "9999px"
-                    },
-                },
-            },
-        }
-    </script>
-    <style type="text/tailwindcss">
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background-color: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background-color: #94a3b8; }
-        
-        .glass-search {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .dark .glass-search {
-            background: rgba(30, 35, 48, 0.7);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        /* Custom Select2 Styling untuk mencocokkan UI */
-        .select2-container--default .select2-selection--single {
-            @apply w-full px-4 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent h-[48px] flex items-center;
-        }
-        .select2-container--default .select2-selection--single .select2-selection__rendered {
-            @apply text-slate-700 dark:text-white;
-        }
-        .select2-dropdown {
-            @apply border-slate-200 dark:border-slate-700 bg-white dark:bg-[#1e2330] rounded-xl shadow-xl;
-        }
-    </style>
+    <link rel="stylesheet" href="Style.css">
 </head>
 
-<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased min-h-screen flex flex-col">
-    <header class="sticky top-0 z-50 w-full bg-white dark:bg-[#1e2330] border-b border-slate-100 dark:border-slate-800 shadow-sm transition-colors duration-300">
-        <div class="max-w-[1920px] mx-auto px-6 lg:px-12">
-            <div class="flex h-20 items-center justify-between">
-                <div class="flex items-center gap-3 group cursor-pointer">
-                    <div class="size-10 bg-primary/10 rounded-lg flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                        <span class="material-symbols-outlined text-2xl">local_library</span>
-                    </div>
-                    <h1 class="text-xl lg:text-2xl font-bold tracking-tight text-slate-900 dark:text-white">Perpustakaan</h1>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <span class="material-symbols-outlined">local_library</span>
                 </div>
-                <nav class="hidden md:flex items-center gap-1">
-                    <a class="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300" href="Dashboard.php">Dashboard</a>
-                    <a class="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300" href="Anggota.php">Anggota</a>
-                    <a class="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300" href="Buku.php">Buku</a>
-                    <a class="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300" href="Pegawai.php">Pegawai</a>
-                    <a class="px-5 py-2.5 text-sm font-semibold text-primary bg-primary/5 rounded-full transition-all duration-300" href="Peminjam.php">Peminjam</a>
-                </nav>
-                <div class="flex items-center gap-4">
-                    <button class="flex items-center justify-center size-10 rounded-full text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </button>
-                    <div class="size-10 rounded-full bg-slate-200 overflow-hidden ring-2 ring-transparent hover:ring-primary cursor-pointer transition-all duration-300 relative group">
-                        <img alt="Profile picture" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9nlfFXRh0igbh1cB6ni6CSKaJi3CiwAC2XrQA029YM1DhPh2PRBjXqV2eMtUNjPCw7VYzRKwIvx5kj-P5lxM1yhKtq4tPhGDbPq1tGTZR7KSzhqJZ6VLtT40PnnehnzISN3nXqIpcnn7hgco5z6acWdcY-LMo9P-91ci7WmLtt5LgzTU9PUWdfdkZO-bi8uiFMI5oEPGv8f8dsFICqDQ-piOvebxD_7BClBdUbYiGE2OGpujnvi9Bw9mLfDWT0Ebiq0WQjf0O6gkV" />
-                    </div>
+                <h1 style="font-size: 1.5rem; font-weight: 800;">Perpustakaan</h1>
+            </div>
+            <nav>
+                <a href="Dashboard.php">Dashboard</a>
+                <a href="Anggota.php">Anggota</a>
+                <a href="Buku.php">Buku</a>
+                <a href="Pegawai.php">Pegawai</a>
+                <a href="Peminjam.php" class="active">Peminjam</a>
+            </nav>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <span class="material-symbols-outlined" style="color: #64748b; cursor: pointer;">notifications</span>
+                <div style="width: 40px; height: 40px; border-radius: 50%; background: #e2e8f0; overflow: hidden;">
+                    <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9nlfFXRh0igbh1cB6ni6CSKaJi3CiwAC2XrQA029YM1DhPh2PRBjXqV2eMtUNjPCw7VYzRKwIvx5kj-P5lxM1yhKtq4tPhGDbPq1tGTZR7KSzhqJZ6VLtT40PnnehnzISN3nXqIpcnn7hgco5z6acWdcY-LMo9P-91ci7WmLtt5LgzTU9PUWdfdkZO-bi8uiFMI5oEPGv8f8dsFICqDQ-piOvebxD_7BClBdUbYiGE2OGpujnvi9Bw9mLfDWT0Ebiq0WQjf0O6gkV" style="width:100%; height:100%; object-fit: cover;">
                 </div>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow p-6 lg:p-12 relative overflow-hidden">
-        <div class="absolute top-[-10%] left-[-5%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
-        <div class="max-w-[1600px] mx-auto relative z-10">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
+    <main>
+        <div class="container">
+            <div class="page-header">
                 <div>
-                    <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Manajemen Peminjaman</h2>
-                    <p class="text-slate-500 dark:text-slate-400 mt-1">Kelola data seluruh peminjam perpustakaan</p>
+                    <h2 style="font-size: 1.8rem; font-weight: 800;">Manajemen Peminjam</h2>
+                    <p style="color: var(--text-muted);">Kelola data seluruh Peminjam perpustakaan</p>
                 </div>
-                <div class="flex flex-col sm:flex-row gap-4 items-center">
-                    <form action="Peminjam.php" method="GET" class="flex flex-col sm:flex-row gap-4 items-center">
-                        <div class="relative w-full sm:w-80">
-                        <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">search</span>
-                        <input name="cari" class="glass-search w-full pl-12 pr-4 py-3 rounded-xl border-none ring-1 ring-slate-200 dark:ring-slate-700 focus:ring-2 focus:ring-primary transition-all outline-none text-slate-700 dark:text-slate-200" placeholder="Cari ID Peminjam..." type="text" />
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                    <form action="Anggota.php" method="GET">
+                        <div class="search-wrapper">
+                            <span class="material-symbols-outlined search-icon">search</span>
+                            <input name="cari" class="glass-search" placeholder="Cari ID Peminjam..." type="text" />
                         </div>
-                        <button type="submit" class="hidden"></button>
                     </form>
-                    <button onclick="openModalPeminjam()" class="w-full sm:w-auto px-6 py-3 bg-primary hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-0.5">
-                        <span class="material-symbols-outlined text-xl">person_add</span>
-                        <span>Tambah Peminjam Baru</span>
+                    <button onclick="openModal()" class="btn-primary">
+                        <span class="material-symbols-outlined">person_add</span>
+                        Tambah Peminjam
                     </button>
                 </div>
             </div>
 
-            <div class="bg-white dark:bg-[#1e2330] rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+            <div class="card-table">
+                <div class="table-responsive">
+                    <table>
                         <thead>
-                            <tr class="bg-slate-50/50 dark:bg-slate-800/50 border-b border-slate-100 dark:border-slate-800">
-                                <th class="px-8 py-5 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">ID Peminjam</th>
-                                <th class="px-8 py-5 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">ID Anggota</th>
-                                <th class="px-8 py-5 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">ISBN</th>
-                                <th class="px-8 py-5 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tgl Pinjam</th>
-                                <th class="px-8 py-5 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Tgl Kembali</th>
-                                <th class="px-8 py-5 text-sm font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider text-right">Aksi</th>
+                            <tr>
+                                <th>ID Peminjam</th>
+                                <th>ID Anggota</th>
+                                <th>ISBN</th>
+                                <th>Tgl Pinjam</th>
+                                <th>Tgl Kembali</th>
+                                <th style="text-align: right;">Aksi</th>
                             </tr>
                         </thead>
-                        <tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+                        <tbody>
                             <?php
                                 $koneksi = mysqli_connect("localhost", "root", "", "perpus_marvellino");
-                                
                                 if(isset($_GET['cari'])){
                                     $cari = $_GET['cari'];
-
                                     $sql = "select * from peminjam where
                                             ID_Peminjam Like '%$cari%' OR
                                             ID_Anggota Like '%$cari%' OR
                                             ISBN Like '%$cari%'";
-                                } else{
-                                    $sql = "select * from peminjam";
+                                } else {
+                                    $sql = "SELECT * FROM peminjam";
                                 }
-
                                 $data = mysqli_query($koneksi, $sql);
-
                                 if(mysqli_num_rows($data) == 0){
-                                    echo "<tr><td colspan='7' class='text-cennter py-10 text-slate-500'>Data tidak ditemukan</tr>";
+                                    echo "<tr><td colspan='6' style='text-align:center; padding: 40px;'>Data tidak ditemukan</td></tr>";
                                 }
-
                                 while($tampil = mysqli_fetch_array($data)){
                             ?>
-                            <tr class="group hover:bg-slate-50/80 dark:hover:bg-slate-800/30 transition-colors duration-150">
-                                <td class="px-8 py-5 text-sm font-medium text-primary"><?= $tampil['ID_Peminjam'] ?></td>
-                                <td class="px-8 py-5 font-semibold text-slate-900 dark:text-white"><?= $tampil['ID_Anggota']?></td>
-                                <td class="px-8 py-5 text-sm text-slate-600 dark:text-slate-300"><?= $tampil['ISBN']?></td>
-                                <td class="px-8 py-5 text-sm text-slate-600 dark:text-slate-300"><?= $tampil['Tgl_Peminjaman']?></td>
-                                <td class="px-8 py-5 text-sm text-slate-600 dark:text-slate-300"><?= $tampil['Tgl_Pengembalian']?></td>
-                                <td class="px-8 py-5 text-right">
-                                    <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                        <button onclick="openEditModal('<?=$tampil['ID_Peminjam']?>', '<?=$tampil['ID_Anggota']?>', '<?=$tampil['ISBN']?>', '<?=$tampil['Tgl_Peminjaman']?>', '<?=$tampil['Tgl_Pengembalian']?>')"
-                                            class="p-2 text-slate-400 hover:text-primary hover:bg-primary/5 rounded-lg transition-colors">
-                                            <span class="material-symbols-outlined text-[20px]">edit</span>
+                            <tr>
+                                <td style="color: var(--primary); font-weight: 600;"><?= $tampil['ID_Peminjam'] ?></td>
+                                <td><span style="font-weight: 700;"><?= $tampil['ID_Anggota']?></span></td>
+                                <td><span style="font-weight: 700;"><?= $tampil['ISBN']?></span></td>
+                                <td><?= $tampil['Tgl_Peminjaman']?></td>
+                                <td><?= $tampil['Tgl_Pengembalian']?></td>
+                                <td>
+                                    <div class="action-btns">
+                                        <button class="btn-icon edit" onclick="openEditModal('<?=$tampil['ID_Peminjam']?>', '<?=$tampil['ID_Anggota']?>', '<?=$tampil['ISBN']?>', '<?=$tampil['Tgl_Peminjaman']?>', '<?=$tampil['Tgl_Pengembalian']?>')">
+                                            <span class="material-symbols-outlined">edit</span>
                                         </button>
-                                        <a href="CRUD_Delete/Delete_Peminjam.php?id=<?=$tampil['ID_Peminjam']?>"
-                                            onclick="return confirm('Apakah kamu yakin akan menghapus peminjam ini?')"
-                                            class="p-2 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"><span class="material-symbols-outlined text-[20px]">delete</span>
+                                        <a href="CRUD_Delete/Delete_Peminjam.php?id=<?= $tampil['ID_Peminjam'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
+                                            <span class="material-symbols-outlined">delete</span>
                                         </a>
                                     </div>
                                 </td>
@@ -178,164 +113,144 @@
             </div>
         </div>
     </main>
-    <footer class="bg-[#111318] text-white py-8 border-t border-[#1f232e]">
-        <div class="max-w-[1920px] mx-auto px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-2 opacity-80 hover:opacity-100 transition-opacity">
-                <span class="material-symbols-outlined text-primary text-xl">local_library</span>
-                <span class="text-lg font-bold tracking-tight">Perpustakaan</span>
-            </div>
-            <div class="flex items-center gap-6">
-                <a class="text-slate-400 hover:text-white text-sm transition-colors" href="#">Privacy Policy</a>
-                <a class="text-slate-400 hover:text-white text-sm transition-colors" href="#">Terms of Service</a>
-                <a class="text-slate-400 hover:text-white text-sm transition-colors" href="#">Help Center</a>
-            </div>
-            <p class="text-slate-500 text-sm font-light tracking-wide">
-                © Metzu copyright
-            </p>
-        </div>
+
+    <footer>
+        <p>© Metzu copyright - Perpustakaan Digital</p>
     </footer>
 
-    <div id="modalPeminjam" class="fixed inset-0 z-[60] hidden bg-slate-900/60 backdrop-blur-sm px-4 flex items-center justify-center">
-        <div class="relative w-full max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-[#1e2330] p-8 shadow-2xl transition-all">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-xl font-bold text-slate-900 dark:text-white">Tambah Peminjam Baru</h3>
-                <button onclick="closeModalPeminjam()" class="text-slate-400 hover:text-slate-600 dark:hover:text-white">
-                    <span class="material-symbols-outlined">close</span>
-                </button>
-            </div>
-            
-            <form action="CRUD_TAMBAH/Tambah_Peminjam.php" method="POST" class="space-y-4">
-                <div>
-                    <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">ID PEMINJAM</label>
-                    <input type="text" name="id_peminjam" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent outline-none focus:ring-2 focus:ring-primary text-slate-700 dark:text-white" placeholder="Masukkan ID...">
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Pilih Anggota</label>
-                    <select name="id_anggota" class="js-example-basic-single w-full">
-                        <option value="">-- Cari Nama atau ID Anggota --</option>
-                        <?php
-                            $query_anggota = mysqli_query($koneksi, "SELECT ID_Anggota, Nama FROM anggota");
-                            while($row = mysqli_fetch_array($query_anggota)){
-                                echo "<option value='".$row['ID_Anggota']."'>".$row['ID_Anggota']." - ".$row['Nama']."</option>";
-                            }
-                        ?>
-                    </select>
-                </div>
-
-                <div>
-                    <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Pilih Buku (ISBN)</label>
-                    <select name="isbn" class="js-example-basic-single w-full">
-                        <option value="">-- Cari Judul atau ISBN --</option>
-                        <?php
-                            $query_buku = mysqli_query($koneksi, "SELECT ISBN, Judul FROM buku");
-                            while($row = mysqli_fetch_array($query_buku)){
-                                echo "<option value='".$row['ISBN']."'>".$row['ISBN']." - ".$row['Judul']."</option>";
-                            }
-                        ?>
-                    </select>
-                </div>
-
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Tgl Pinjam</label>
-                        <input type="date" name="tgl_pinjam" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-white">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold mb-2 text-slate-700 dark:text-slate-300">Tgl Kembali</label>
-                        <input type="date" name="tgl_kembali" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-white">
-                    </div>
-                </div>
-
-                <div class="flex justify-end gap-3 mt-8">
-                    <button type="button" onclick="closeModalPeminjam()" class="px-6 py-2.5 text-sm font-medium text-slate-500 hover:text-slate-700">Batal</button>
-                    <button type="submit" class="px-8 py-2.5 bg-primary hover:bg-blue-700 text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/20 transition-all">Simpan Data</button>
-                </div>
-            </form>
+<div id="modalPeminjam" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="text-xl font-bold text-slate-900">Tambah Peminjam Baru</h3>
+            <button onclick="closeModalPeminjam()" style="background:none; border:none; cursor:pointer; color:#94a3b8;">
+                <span class="material-symbols-outlined">close</span>
+            </button>
         </div>
-    </div>
-
-    <div id="modalEditPeminjam" class="fixed inset-0 z-[60] hidden bg-slate-900/60 backdrop-blur-sm px-4 flex items-center justify-center">
-    <div class="relative w-full max-w-lg transform overflow-hidden rounded-2xl bg-white dark:bg-[#1e2330] p-8 shadow-2xl">
-        <h3 class="text-xl font-bold mb-6 text-slate-900 dark:text-white">Edit Data Peminjam</h3>
         
-        <form action="CRUD_Edit/Edit_Peminjam.php" method="POST" class="space-y-4">
-            <div>
-                <label class="block text-sm font-semibold mb-2">ID PEMINJAM</label>
-                <input type="text" id="edit_id_peminjam" name="id_peminjam" readonly class="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 border-none outline-none">
+        <form action="CRUD_TAMBAH/Tambah_Peminjam.php" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+            <div class="form-group">
+                <label class="label-custom">ID PEMINJAM</label>
+                <input type="text" name="id_peminjam" class="input-custom" placeholder="Masukkan ID...">
             </div>
 
-            <div>
-                <label class="block text-sm font-semibold mb-2">ID Anggota</label>
-                <input type="text" id="edit_id_anggota" name="id_anggota" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent">
+            <div class="form-group">
+                <label class="label-custom">Pilih Anggota</label>
+                <select name="id_anggota" class="js-example-basic-single input-custom" style="width: 100%;">
+                    <option value="">-- Cari Nama atau ID Anggota --</option>
+                    <?php
+                        $query_anggota = mysqli_query($koneksi, "SELECT ID_Anggota, Nama FROM anggota");
+                        while($row = mysqli_fetch_array($query_anggota)){
+                            echo "<option value='".$row['ID_Anggota']."'>".$row['ID_Anggota']." - ".$row['Nama']."</option>";
+                        }
+                    ?>
+                </select>
             </div>
 
-            <div>
-                <label class="block text-sm font-semibold mb-2">ISBN</label>
-                <input type="text" id="edit_isbn" name="isbn" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent">
+            <div class="form-group">
+                <label class="label-custom">Pilih Buku (ISBN)</label>
+                <select name="isbn" class="js-example-basic-single input-custom" style="width: 100%;">
+                    <option value="">-- Cari Judul atau ISBN --</option>
+                    <?php
+                        $query_buku = mysqli_query($koneksi, "SELECT ISBN, Judul FROM buku");
+                        while($row = mysqli_fetch_array($query_buku)){
+                            echo "<option value='".$row['ISBN']."'>".$row['ISBN']." - ".$row['Judul']."</option>";
+                        }
+                    ?>
+                </select>
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid-2">
                 <div>
-                    <label class="block text-sm font-semibold mb-2">Tgl Pinjam</label>
-                    <input type="date" id="edit_tgl_pinjam" name="tgl_pinjam" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent">
+                    <label class="label-custom">Tgl Pinjam</label>
+                    <input type="date" name="tgl_pinjam" class="input-custom">
                 </div>
                 <div>
-                    <label class="block text-sm font-semibold mb-2">Tgl Kembali</label>
-                    <input type="date" id="edit_tgl_kembali" name="tgl_kembali" class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent">
+                    <label class="label-custom">Tgl Kembali</label>
+                    <input type="date" name="tgl_kembali" class="input-custom">
                 </div>
             </div>
 
-            <div class="flex justify-end gap-3 mt-8">
-                <button type="button" onclick="closeEditModal()" class="px-6 py-2.5 text-sm font-medium text-slate-500">Batal</button>
-                <button type="submit" class="px-8 py-2.5 bg-primary hover:bg-blue-700 text-white text-sm font-bold rounded-xl">Simpan Perubahan</button>
+            <div class="flex-end-gap">
+                <button type="button" onclick="closeModalPeminjam()" class="btn-batal">Batal</button>
+                <button type="submit" class="btn-simpan">Simpan Data</button>
             </div>
         </form>
     </div>
+</div>
+
+
+<div id="modalEditPeminjam" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>Edit Data Peminjam</h3>
+            <button onclick="closeEditModal()" style="background:none; border:none; cursor:pointer; color:#94a3b8;">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <form action="CRUD_Edit/Edit_Peminjam.php" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+            <input type="hidden" id="edit_id_peminjam" name="id_peminjam">
+
+            <div class="form-group">
+                <label class="label-custom">Pilih Anggota</label>
+                <select name="id_anggota" id="edit_id_anggota" class="input-custom">
+                    </select>
+            </div>
+
+            <div class="form-group">
+                <label class="label-custom">Pilih Buku (ISBN)</label>
+                <select name="isbn" id="edit_isbn" class="input-custom">
+                    </select>
+            </div>
+
+            <div class="grid-2">
+                <div>
+                    <label class="label-custom">Tgl Pinjam</label>
+                    <input type="date" id="edit_tgl_pinjam" name="tgl_pinjam" class="input-custom">
+                </div>
+                <div>
+                    <label class="label-custom">Tgl Kembali</label>
+                    <input type="date" id="edit_tgl_kembali" name="tgl_kembali" class="input-custom">
+                </div>
+            </div>
+            
+            <div class="flex-end-gap">
+                <button type="button" onclick="closeEditModal()" class="btn-batal">Batal</button>
+                <button type="submit" class="btn-simpan">Simpan Perubahan</button>
+            </div>
+        </form>
     </div>
+</div>
 
     <script>
-        $(document).ready(function() {
-            $('.js-example-basic-single').select2({
-                placeholder: "Silahkan cari...",
-                allowClear: true,
-                dropdownParent: $('#modalPeminjam')
-            });
-        });
+        const modal = document.getElementById('modalPeminjam');
+        const modalEdit = document.getElementById('modalEditPeminjam');
 
-        function openModalPeminjam() {
-            const modal = document.getElementById('modalPeminjam');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex'); 
-            document.body.style.overflow = 'hidden'; 
+        function openModal(){
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-
-        function closeModalPeminjam() {
-            const modal = document.getElementById('modalPeminjam');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            document.body.style.overflow = 'auto'; 
+        function closeModal() {
+            modal.style.display = 'none';
+            document.body.style.overflow = 'auto';
         }
-        
         function openEditModal(id, anggota, isbn, tgl_p, tgl_k){
+
             document.getElementById('edit_id_peminjam').value = id;
             document.getElementById('edit_id_anggota').value = anggota;
             document.getElementById('edit_isbn').value = isbn;
             document.getElementById('edit_tgl_pinjam').value = tgl_p;
             document.getElementById('edit_tgl_kembali').value = tgl_k;
-
-            // Tampilkan modal
-            const modal = document.getElementById('modalEditPeminjam');
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
+            modalEdit.style.display = 'flex';
         }
-
         function closeEditModal() {
-            const modal = document.getElementById('modalEditPeminjam');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
+            modalEdit.style.display = 'none';
         }
-        
+
+        window.onclick = function(event){
+            if(event.target == modal) closeModal();
+            if(event.target == modalEdit) closeEditModal();
+        }
     </script>
 </body>
 </html>

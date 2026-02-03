@@ -11,5 +11,5 @@
     Gender = '$Gender'
     where NIP = '$NIP'");
 
-    header("location:../Peminjam.php");
+    header("location:../pegawai.php");
 ?>
