@@ -9,7 +9,7 @@
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="Style/StyleTable.css">
+    <link rel="stylesheet" href="../Style/StyleTable.css">
 </head>
 
 <body>
@@ -26,7 +26,6 @@
                 <a href="Anggota.php">Anggota</a>
                 <a href="Buku.php" class="active">Buku</a>
                 <a href="Pegawai.php">Pegawai</a>
-                <a href="Peminjam.php">Peminjam</a>
             </nav>
             <div style="display: flex; gap: 15px; align-items: center;">
                 <span class="material-symbols-outlined" style="color: #64748b; cursor: pointer;">notifications</span>
@@ -45,7 +44,7 @@
                     <p style="color: var(--text-muted);">Kelola data seluruh Buku perpustakaan</p>
                 </div>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <form action="Anggota.php" method="GET">
+                    <form action="Buku.php" method="GET">
                         <div class="search-wrapper">
                             <span class="material-symbols-outlined search-icon">search</span>
                             <input name="cari" class="glass-search" placeholder="Cari Buku atau ISBN..." type="text" />
@@ -101,7 +100,7 @@
                                         <button class="btn-icon edit" onclick="openEditModal('<?=$tampil['ISBN']?>', '<?=$tampil['Judul']?>', '<?=$tampil['Pengarang']?>', '<?=$tampil['Genre']?>', '<?=$tampil['Penerbit']?>', '<?=$tampil['Tahun']?>')">
                                             <span class="material-symbols-outlined">edit</span>
                                         </button>
-                                        <a href="CRUD_Delete/Delete_Buku.php?id=<?= $tampil['ISBN'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
+                                        <a href="../CRUD_Delete/Delete_Buku.php?id=<?= $tampil['ISBN'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
                                             <span class="material-symbols-outlined">delete</span>
                                         </a>
                                     </div>
@@ -125,7 +124,7 @@
                 <h3 style="font-size: 1.25rem; font-weight: 800;">Tambah Anggota</h3>
                 <span class="material-symbols-outlined" onclick="closeModal()" style="cursor:pointer;">close</span>
             </div>
-            <form action="CRUD_TAMBAH/Tambah_Buku.php" method="POST">
+            <form action="../CRUD_TAMBAH/Tambah_Buku.php" method="POST">
                 <div class="form-group">
                     <label>ISBN</label>
                     <input type="text" name="isbn" class="form-control" required>
@@ -162,7 +161,7 @@
     <div id="modalEditPeminjam" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 24px;">Edit Data Buku</h3>
-        <form action="CRUD_Edit/Edit_Buku.php" method="POST">
+        <form action="../CRUD_Edit/Edit_Buku.php" method="POST">
             <input type="hidden" id="edit_isbn_lama" name="isbn_lama">
 
             <div class="form-group">

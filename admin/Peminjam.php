@@ -9,7 +9,7 @@
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="Style/StyleTable.css">
+    <link rel="stylesheet" href="../Style/StyleTable.css">
 </head>
 
 <body>
@@ -45,7 +45,7 @@
                     <p style="color: var(--text-muted);">Kelola data seluruh Peminjam perpustakaan</p>
                 </div>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <form action="Anggota.php" method="GET">
+                    <form action="Peminjam.php" method="GET">
                         <div class="search-wrapper">
                             <span class="material-symbols-outlined search-icon">search</span>
                             <input name="cari" class="glass-search" placeholder="Cari ID Peminjam..." type="text" />
@@ -100,7 +100,7 @@
                                         <button class="btn-icon edit" onclick="openEditModal('<?=$tampil['ID_Peminjam']?>', '<?=$tampil['ID_Anggota']?>', '<?=$tampil['ISBN']?>', '<?=$tampil['Tgl_Peminjaman']?>', '<?=$tampil['Tgl_Pengembalian']?>')">
                                             <span class="material-symbols-outlined">edit</span>
                                         </button>
-                                        <a href="CRUD_Delete/Delete_Peminjam.php?id=<?= $tampil['ID_Peminjam'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
+                                        <a href="../CRUD_Delete/Delete_Peminjam.php?id=<?= $tampil['ID_Peminjam'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
                                             <span class="material-symbols-outlined">delete</span>
                                         </a>
                                     </div>
@@ -127,7 +127,7 @@
             </button>
         </div>
         
-        <form action="CRUD_TAMBAH/Tambah_Peminjam.php" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+        <form action="../CRUD_TAMBAH/Tambah_Peminjam.php" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
             <div class="form-group">
                 <label class="label-custom">ID PEMINJAM</label>
                 <input type="text" name="id_peminjam" class="input-custom" placeholder="Masukkan ID...">
@@ -188,7 +188,7 @@
             </button>
         </div>
         
-        <form action="CRUD_Edit/Edit_Peminjam.php" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
+        <form action="../CRUD_Edit/Edit_Peminjam.php" method="POST" style="display: flex; flex-direction: column; gap: 1rem;">
             <input type="hidden" id="edit_id_peminjam" name="id_peminjam">
 
             <div class="form-group">

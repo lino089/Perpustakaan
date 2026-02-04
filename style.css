@@ -1,0 +1,132 @@
+/* Reset & font */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: #f8faff;
+}
+
+/* Styling navbar */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background: white;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: #666;
+    font-weight: 500;
+}
+
+.nav-links li:first-child a {
+    color: #0047ff;
+    background: #eef2ff;
+    padding: 8px 16px;
+    border-radius: 20px;
+}
+
+.hero-section{
+    padding: 40px 5%;
+}
+
+.hero-content{
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5), url());
+    background-size: cover;
+    background-position: center;
+    border-radius: 24px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}
+
+.hero-content blockquote{
+    font-size: 2.5rem;
+    font-weight: bold;
+    max-width: 700px;
+    margin-bottom: 20px;
+}
+
+.hero-buttons{
+    display:  flex;
+    gap:  15px;
+}
+
+.btn-primary{
+    background: #0047ff;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-secondary{
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.stats-container{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 5%;
+    margin-top: -50px;
+}
+
+.stat-card{
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 250px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.stat-info span{
+    display:block;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.stat-info strong{
+    font-size: 1.2rem;
+    color: #333;
+}
+
+footer{
+    background: #0a0a0b;
+    color: #888;
+    padding: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 50px;
+    font-size: 0.8rem;
+}
+
+.footer-links a{
+    color: #888;
+    text-decoration: none;
+    margin: 0 10px;
+}

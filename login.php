@@ -36,7 +36,7 @@
         <div class="field">
           <label>Username</label>
           <div class="input-wrapper">
-            <input type="text" placeholder="Enter your username">
+            <input type="text" name="username" placeholder="Enter your username">
             <span class="material-symbols-outlined">person</span>
           </div>
         </div>
@@ -47,7 +47,7 @@
             <a href="#" class="link">Forgot Password?</a>
           </div>
           <div class="input-wrapper">
-            <input type="password" placeholder="Enter your password">
+            <input type="password" name="password" placeholder="Enter your password">
             <span class="material-symbols-outlined">lock</span>
           </div>
         </div>
@@ -57,7 +57,7 @@
           <label for="remember">Remember this device</label>
         </div>
 
-        <button type="submit" class="btn-primary">Login to Dashboard</button>
+        <button type="submit" name="login" class="btn-primary">Login to Dashboard</button>
 
         <p class="signup">
           Don't have an account?

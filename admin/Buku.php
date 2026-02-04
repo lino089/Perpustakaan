@@ -9,7 +9,7 @@
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="Style/StyleTable.css">
+    <link rel="stylesheet" href="../Style/StyleTable.css">
 </head>
 
 <body>
@@ -23,8 +23,8 @@
             </div>
             <nav>
                 <a href="Dashboard.php">Dashboard</a>
-                <a href="Anggota.php" class="active">Anggota</a>
-                <a href="Buku.php">Buku</a>
+                <a href="Anggota.php">Anggota</a>
+                <a href="Buku.php" class="active">Buku</a>
                 <a href="Pegawai.php">Pegawai</a>
                 <a href="Peminjam.php">Peminjam</a>
             </nav>
@@ -41,19 +41,19 @@
         <div class="container">
             <div class="page-header">
                 <div>
-                    <h2 style="font-size: 1.8rem; font-weight: 800;">Manajemen Anggota</h2>
-                    <p style="color: var(--text-muted);">Kelola data seluruh anggota perpustakaan</p>
+                    <h2 style="font-size: 1.8rem; font-weight: 800;">Manajemen Buku</h2>
+                    <p style="color: var(--text-muted);">Kelola data seluruh Buku perpustakaan</p>
                 </div>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <form action="Anggota.php" method="GET">
+                    <form action="Buku.php" method="GET">
                         <div class="search-wrapper">
                             <span class="material-symbols-outlined search-icon">search</span>
-                            <input name="cari" class="glass-search" placeholder="Cari nama atau NIS..." type="text" />
+                            <input name="cari" class="glass-search" placeholder="Cari Buku atau ISBN..." type="text" />
                         </div>
                     </form>
                     <button onclick="openModal()" class="btn-primary">
                         <span class="material-symbols-outlined">person_add</span>
-                        Tambah Anggota
+                        Tambah Buku
                     </button>
                 </div>
             </div>
@@ -63,11 +63,12 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>ID Anggota</th>
-                                <th>Nama</th>
-                                <th>NIS</th>
-                                <th>Alamat</th>
-                                <th>NO HP</th>
+                                <th>ISBN</th>
+                                <th>Judul</th>
+                                <th>Pengarang</th>
+                                <th>Penebit</th>
+                                <th>Tahun Terbit</th>
+                                <th>Genre</th>
                                 <th style="text-align: right;">Aksi</th>
                             </tr>
                         </thead>
@@ -76,9 +77,11 @@
                                 $koneksi = mysqli_connect("localhost", "root", "", "perpus_marvellino");
                                 if(isset($_GET['cari'])){
                                     $cari = $_GET['cari'];
-                                    $sql = "SELECT * FROM anggota WHERE ID_Anggota LIKE '%$cari%' OR Nama LIKE '%$cari%'";
+                                    $sql = "select * from buku where
+                                            Judul Like '%$cari%' OR
+                                            ISBN LIke '%$cari%'";
                                 } else {
-                                    $sql = "SELECT * FROM anggota";
+                                    $sql = "SELECT * FROM buku";
                                 }
                                 $data = mysqli_query($koneksi, $sql);
                                 if(mysqli_num_rows($data) == 0){
@@ -87,17 +90,18 @@
                                 while($tampil = mysqli_fetch_array($data)){
                             ?>
                             <tr>
-                                <td style="color: var(--primary); font-weight: 600;"><?= $tampil['ID_Anggota'] ?></td>
-                                <td><span style="font-weight: 700;"><?= $tampil['Nama']?></span></td>
-                                <td><?= $tampil['NIS']?></td>
-                                <td><?= $tampil['Alamat']?></td>
-                                <td><?= $tampil['No_hp']?></td>
+                                <td style="color: var(--primary); font-weight: 600;"><?= $tampil['ISBN'] ?></td>
+                                <td><span style="font-weight: 700;"><?= $tampil['Judul']?></span></td>
+                                <td><?= $tampil['Pengarang']?></td>
+                                <td><?= $tampil['Penerbit']?></td>
+                                <td><?= $tampil['Tahun']?></td>
+                                <td><?= $tampil['Genre']?></td>
                                 <td>
                                     <div class="action-btns">
-                                        <button class="btn-icon edit" onclick="openEditModal('<?=$tampil['ID_Anggota']?>', '<?=$tampil['Nama']?>', '<?=$tampil['NIS']?>', '<?=$tampil['Alamat']?>', '<?=$tampil['No_hp']?>')">
+                                        <button class="btn-icon edit" onclick="openEditModal('<?=$tampil['ISBN']?>', '<?=$tampil['Judul']?>', '<?=$tampil['Pengarang']?>', '<?=$tampil['Genre']?>', '<?=$tampil['Penerbit']?>', '<?=$tampil['Tahun']?>')">
                                             <span class="material-symbols-outlined">edit</span>
                                         </button>
-                                        <a href="CRUD_Delete/Delete_Anggota.php?id=<?= $tampil['ID_Anggota'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
+                                        <a href="../CRUD_Delete/Delete_Buku.php?id=<?= $tampil['ISBN'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
                                             <span class="material-symbols-outlined">delete</span>
                                         </a>
                                     </div>
@@ -121,26 +125,30 @@
                 <h3 style="font-size: 1.25rem; font-weight: 800;">Tambah Anggota</h3>
                 <span class="material-symbols-outlined" onclick="closeModal()" style="cursor:pointer;">close</span>
             </div>
-            <form action="CRUD_TAMBAH/Tambah_Anggota.php" method="POST">
+            <form action="../CRUD_TAMBAH/Tambah_Buku.php" method="POST">
                 <div class="form-group">
-                    <label>ID Anggota</label>
-                    <input type="text" name="ID" class="form-control" required>
+                    <label>ISBN</label>
+                    <input type="text" name="isbn" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" name="nama" class="form-control" required>
+                    <label>Judul</label>
+                    <input type="text" name="judul" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>NIS</label>
-                    <input type="text" name="NIS" class="form-control" required>
+                    <label>Pengarang</label>
+                    <input type="text" name="pengarang" class="form-control" required>
                 </div>
                 <div class="form-group">
-                    <label>Alamat</label>
-                    <textarea name="alamat" class="form-control" rows="3"></textarea>
+                    <label>Penebit</label>
+                    <textarea name="penerbit" class="form-control" rows="3"></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Nomor Telepon</label>
-                    <input type="text" name="no_hp" class="form-control">
+                    <label>Tahun Terbit</label>
+                    <input type="text" name="tahun" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Genre</label>
+                    <input type="text" name="genre" class="form-control">
                 </div>
                 <div style="display:flex; justify-content: flex-end; gap: 12px; margin-top: 32px;">
                     <button type="button" onclick="closeModal()" style="background:none; border:none; cursor:pointer; font-weight:600; color:#64748b;">Batal</button>
@@ -150,37 +158,44 @@
         </div>
     </div>
 
+
     <div id="modalEditPeminjam" class="modal-overlay">
-        <div class="modal-content">
-            <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 24px;">Edit Data Anggota</h3>
-            <form action="CRUD_Edit/Edit_Anggota.php" method="POST">
-                <div class="form-group">
-                    <label>ID Anggota</label>
-                    <input type="text" id="edit_id" name="id" readonly class="form-control" style="background: #f1f5f9;">
-                </div>
-                <div class="form-group">
-                    <label>Nama</label>
-                    <input type="text" id="edit_nama" name="nama" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>NIS</label>
-                    <input type="text" id="edit_nis" name="nis" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>Alamat</label>
-                    <input type="text" id="edit_alamat" name="alamat" class="form-control">
-                </div>
-                <div class="form-group">
-                    <label>No HP</label>
-                    <input type="text" id="edit_no_hp" name="no_hp" class="form-control">
-                </div>
-                <div style="display:flex; justify-content: flex-end; gap: 12px; margin-top: 32px;">
-                    <button type="button" onclick="closeEditModal()" style="background:none; border:none; cursor:pointer;">Batal</button>
-                    <button type="submit" class="btn-primary" style="box-shadow:none;">Simpan Perubahan</button>
-                </div>
-            </form>
-        </div>
+    <div class="modal-content">
+        <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 24px;">Edit Data Buku</h3>
+        <form action="../CRUD_Edit/Edit_Buku.php" method="POST">
+            <input type="hidden" id="edit_isbn_lama" name="isbn_lama">
+
+            <div class="form-group">
+                <label>ISBN</label>
+                <input type="text" id="edit_isbn" name="isbn" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Judul</label>
+                <input type="text" id="edit_judul" name="judul" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Pengarang</label>
+                <input type="text" id="edit_pengarang" name="pengarang" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Penerbit</label>
+                <input type="text" id="edit_penerbit" name="penerbit" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Tahun Terbit</label>
+                <input type="text" id="edit_tahun_terbit" name="tahun" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Genre</label>
+                <input type="text" id="edit_genre" name="genre" class="form-control">
+            </div>
+            <div style="display:flex; justify-content: flex-end; gap: 12px; margin-top: 32px;">
+                <button type="button" onclick="closeEditModal()" style="background:none; border:none; cursor:pointer;">Batal</button>
+                <button type="submit" class="btn-primary" style="box-shadow:none;">Simpan Perubahan</button>
+            </div>
+        </form>
     </div>
+</div>
 
     <script>
         const modal = document.getElementById('modalTambah');
@@ -194,12 +209,15 @@
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
         }
-        function openEditModal(id, nama, nis, alamat, no_hp){
-            document.getElementById('edit_id').value = id;
-            document.getElementById('edit_nama').value = nama;
-            document.getElementById('edit_nis').value = nis;
-            document.getElementById('edit_alamat').value = alamat;
-            document.getElementById('edit_no_hp').value = no_hp;
+        function openEditModal(isbn, judul, pengarang, genre, penerbit, tahun){
+
+            document.getElementById('edit_isbn_lama').value = isbn;
+            document.getElementById('edit_isbn').value = isbn;
+            document.getElementById('edit_judul').value = judul;
+            document.getElementById('edit_pengarang').value = pengarang;
+            document.getElementById('edit_genre').value = genre;
+            document.getElementById('edit_penerbit').value = penerbit;
+            document.getElementById('edit_tahun_terbit').value = tahun;
             modalEdit.style.display = 'flex';
         }
         function closeEditModal() {

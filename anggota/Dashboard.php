@@ -66,20 +66,16 @@
                     <a class="px-5 py-2.5 text-sm font-semibold text-primary bg-primary/5 rounded-full transition-all duration-300" href="Dashboard.php">
                         Dashboard
                     </a>
-                    <a class="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300" href="Anggota.php">
-                        Anggota
-                    </a>
                     <a class="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300" href="Buku.php">
                         Buku
                     </a>
-                    <a class="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300" href="Pegawai.php">
-                        Pegawai
-                    </a>
-                    <a class="px-5 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-primary hover:bg-slate-50 dark:hover:bg-slate-800 rounded-full transition-all duration-300" href="Peminjam.php">
-                        Peminjam
-                    </a>
                 </nav>
                 <div class="flex items-center gap-4">
+                    <form action="../Login/logout.php" method="POST">
+                    <button onclick="return confirm('yakin?')" type="submit" class="w-full sm:w-auto px-6 py-3 bg-primary hover:bg-blue-700 text-white font-semibold rounded-xl shadow-lg shadow-primary/20 flex items-center justify-center gap-2 transition-all duration-300 transform hover:-translate-y-0.5" >
+                    <span>Log out</span>
+                    </button>
+                    </form>
                     <button class="flex items-center justify-center size-10 rounded-full text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">
                         <span class="material-symbols-outlined">notifications</span>
                     </button>

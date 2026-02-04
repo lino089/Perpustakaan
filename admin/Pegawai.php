@@ -9,7 +9,7 @@
     <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="Style/StyleTable.css">
+    <link rel="stylesheet" href="../Style/StyleTable.css">
 </head>
 
 <body>
@@ -45,7 +45,7 @@
                     <p style="color: var(--text-muted);">Kelola data seluruh Pegawai perpustakaan</p>
                 </div>
                 <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-                    <form action="Anggota.php" method="GET">
+                    <form action="Pegawai.php" method="GET">
                         <div class="search-wrapper">
                             <span class="material-symbols-outlined search-icon">search</span>
                             <input name="cari" class="glass-search" placeholder="Cari NIP atau Nama..." type="text" />
@@ -97,7 +97,7 @@
                                         <button class="btn-icon edit" onclick="openEditModal('<?=$tampil['NIP']?>', '<?=$tampil['Nama']?>', '<?=$tampil['Alamat']?>', '<?=$tampil['Gender']?>')">
                                             <span class="material-symbols-outlined">edit</span>
                                         </button>
-                                        <a href="CRUD_Delete/Delete_Buku.php?id=<?= $tampil['NIP'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
+                                        <a href="../CRUD_Delete/Delete_Buku.php?id=<?= $tampil['NIP'];?>" onclick="return confirm('Hapus anggota ini?')" class="btn-icon delete">
                                             <span class="material-symbols-outlined">delete</span>
                                         </a>
                                     </div>
@@ -121,7 +121,7 @@
                 <h3 style="font-size: 1.25rem; font-weight: 800;">Tambah Anggota</h3>
                 <span class="material-symbols-outlined" onclick="closeModal()" style="cursor:pointer;">close</span>
             </div>
-            <form action="CRUD_TAMBAH/Tambah_Pegawai.php" method="POST">
+            <form action="../CRUD_TAMBAH/Tambah_Pegawai.php" method="POST">
                 <div class="form-group">
                     <label>NIP</label>
                     <input type="text" name="nip" class="form-control" required>
@@ -150,7 +150,7 @@
     <div id="modalEditPeminjam" class="modal-overlay">
     <div class="modal-content">
         <h3 style="font-size: 1.25rem; font-weight: 800; margin-bottom: 24px;">Edit Data Buku</h3>
-        <form action="CRUD_Edit/Edit_Pegawai.php" method="POST">
+        <form action="../CRUD_Edit/Edit_Pegawai.php" method="POST">
             <div class="form-group">
                 <label>NIP</label>
                 <input type="text" id="edit_nip" name="nip" class="form-control">
